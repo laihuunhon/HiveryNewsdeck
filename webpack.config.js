@@ -21,7 +21,7 @@ const addons = (/* string | string[] */ addonsArg) => {
 // section in 'package.json'.
 // console.log(env); => { env: 'dev' }
 module.exports = () => {
-    const env = process.env.NODE_ENV || 'dev';
+    const env = process.env.NODE_ENV || 'development';
 
     // We use 'buildValidations' to check for the 'env' flag
     if (!env) {
