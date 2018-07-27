@@ -1,0 +1,64 @@
+<div class="container main">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="text-center">Hivery NewsDeck</h1>
+        </div>
+    </div>
+    <div class="row content">
+        <div class="col-sm-4">
+            <div class="panel panel-danger newsList">
+                <div class="panel-heading">Newspaper List</div>
+                <div class="panel-body">
+                    <ul class="newspaperList">
+                        <li ng-repeat="item in ctrl.newspapersList" 
+                            dnd-draggable="item">
+                            <img ng-src="{{'/img/' + item.name + '.jpg'}}" />
+                            <div class="info">
+                                <h4>{{item.name}}</h4>
+                                <p>Price: {{item.price}}$</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="panel panel-danger newsdeck">
+                <div class="panel-heading">Virtual Newsdeck</div>
+                <div class="panel-body">
+                    <ul class="newsdeckList" 
+                        dnd-list
+                        dnd-drop="dropCallback(index, item, external, type)">
+                        <li ng-repeat="item in ctrl.currentArrangement">
+                            <div class="newsContainer" ng-class="ctrl.isChange(item) ? 'changed' : ''">
+                                <img ng-src="{{'/img/' + ctrl.newspapersList[item.newspaper_id].name + '.jpg'}}" />
+                            </div>                            
+                        </li>
+                    </ul>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="btnContainer">
+                                <div>
+                                    <p>
+                                        <strong>Total prices:</strong> {{ctrl.totalPrices | formatNumber}}$
+                                    </p>
+                                    <p>
+                                        <strong>Predicted sales:</strong> {{ctrl.predictedSales | formatNumber}} 
+                                        <span ng-if="ctrl.predictedSales - ctrl.originalPredictedSales !== 0" 
+                                            class="label" 
+                                            ng-class="ctrl.predictedSales - ctrl.originalPredictedSales > 0 ? 'label-success' : 'label-danger'">
+                                            {{ctrl.predictedSales - ctrl.originalPredictedSales | formatNumber}}
+                                        </span>
+                                    </p>
+                                </div>                                
+                                <button class="btn btn-default" ng-click="ctrl.resetArrangement()">Reset</button>
+                                <button class="btn btn-warning" ng-click="ctrl.getBestArrangement()">Best Arrangement</button>
+                                <button class="btn btn-primary" ng-click="ctrl.submit()">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
